@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">User Page</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-decoration-none" href="#">Welcome, {{request.session.username}}</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link active text-decoration-none" href="/user/user">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-decoration-none" href="/user/logout">logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="mt-5">Total Points: {{score}}/ {{total_questions}}</h2>
+        {% for que in result %}
+            {% if  que.1 == que.2%}
+            <div class="card mt-3 alert alert-success">
+                <div class="card-body">
+                    <h5 class="card-title">Question : {{ que.0 }}</h5>
+                    <p class="card-text">Selected Option : {{ que.1 }}</p>
+                    <p class="card-text">Correct Option : {{ que.2 }}</p>
+                    <p class="card-text">Point/Points : 1</p>
+                </div>
+            </div>
+            {% elif que.1 == None%}
+            <div class="card mt-3 alert alert-secondary">
+                <div class="card-body">
+                    <h5 class="card-title">Question : {{ que.0 }}</h5>
+                    <p class="card-text">Selected Option : {{ que.1 }}</p>
+                    <p class="card-text">Correct Option : {{ que.2 }}</p>
+                    <p class="card-text">Point/Points : 0</p>
+                </div>
+            </div>
+            {% else %}
+            <div class="card mt-3 alert alert-danger">
+                <div class="card-body">
+                    <h5 class="card-title">Question : {{ que.0 }}</h5>
+                    <p class="card-text">Selected Option : {{ que.1 }}</p>
+                    <p class="card-text">Correct Option : {{ que.2 }}</p>
+                    <p class="card-text">Point/Points : -0.5</p>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
